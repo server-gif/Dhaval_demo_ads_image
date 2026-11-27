@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Upload two images and get instant, shareable public URLs.">
+  <title>ImageLink — Simple image uploads</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235b5bd6'/%3E%3Cpath d='M17 40l10-11 8 8 6-6 8 9' fill='none' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='40' cy='23' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-shape background-shape-one" aria-hidden="true"></div>
+  <div class="background-shape background-shape-two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="ImageLink home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="15.5" cy="8.5" r="1.8" fill="currentColor"/>
+          <path d="m5.5 17 4.2-4.4 3.2 3.1 2.4-2.4 3.2 3.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span>ImageLink</span>
+    </a>
+    <button class="settings-button" id="settingsButton" type="button" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" stroke="currentColor" stroke-width="1.7"/>
+        <path d="M19.4 13.1a7.8 7.8 0 0 0 .1-2.2l2-1.5-2-3.4-2.3 1a8 8 0 0 0-1.9-1.1L14.8 3h-4l-.6 2.9a8 8 0 0 0-1.9 1.1l-2.3-1-2 3.4 2 1.5a7.8 7.8 0 0 0 .1 2.2l-2 1.5 2 3.4 2.3-1a8 8 0 0 0 1.9 1.1l.6 2.9h4l.6-2.9a8 8 0 0 0 1.9-1.1l2.3 1 2-3.4-2.1-1.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(1 1) scale(.92)"/>
+      </svg>
+      <span>Connection settings</span>
+    </button>
+  </header>
+
+  <main class="main-content">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="eyebrow"><span class="status-dot"></span> Public image links</div>
+      <h1 id="pageTitle">Two images.<br><span>Two shareable links.</span></h1>
+      <p>Upload your images, preview them instantly, and copy their public URLs. No extra steps.</p>
+    </section>
+
+    <section class="upload-panel" aria-labelledby="uploadTitle">
+      <div class="panel-header">
+        <div>
+          <h2 id="uploadTitle">Upload your images</h2>
+          <p>Add up to two images. Each upload gets its own link.</p>
+        </div>
+        <button class="reset-button" id="resetButton" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 10a8 8 0 1 1 1.8 7.1M4 4v6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="upload-grid">
+        <article class="upload-card" data-card="0">
+          <div class="card-heading">
+            <span class="image-number">01</span>
+            <div>
+              <h3>First image</h3>
+              <p class="card-status" id="status0" aria-live="polite">Waiting for an image</p>
+            </div>
+            <button class="change-button" type="button" hidden>Change</button>
+          </div>
+
+          <label class="dropzone" id="dropzone0" for="file0" tabindex="0">
+            <input id="file0" name="image0" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+            <span class="upload-placeholder" id="placeholder0">
+              <span class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <strong>Drop an image here</strong>
+              <span>or <b>browse files</b></span>
+              <small>JPG, PNG, WEBP or GIF · Max 10 MB</small>
+            </span>
+            <span class="preview-wrap" id="previewWrap0" hidden>
+              <img id="preview0" alt="First image preview">
+              <span class="preview-overlay">Click to replace</span>
+            </span>
+          </label>
+
+          <div class="progress-track" id="progressTrack0" hidden>
+            <div class="progress-bar" id="progressBar0"></div>
+          </div>
+
+          <div class="url-section">
+            <label for="url0">Public URL</label>
+            <div class="url-field">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m10 13 4-4m-5.5 6.5-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0m1 1 1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" transform="translate(2 1)"/>
+              </svg>
+              <input id="url0" type="text" value="" placeholder="Your image URL will appear here" readonly aria-describedby="urlHint0">
+              <button id="copy0" class="copy-button" type="button" disabled aria-label="Copy first image URL">
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <p class="url-hint" id="urlHint0">Ready when your upload is complete.</p>
+          </div>
+        </article>
+
+        <article class="upload-card" data-card="1">
+          <div class="card-heading">
+            <span class="image-number">02</span>
+            <div>
+              <h3>Second image</h3>
+              <p class="card-status" id="status1" aria-live="polite">Waiting for an image</p>
+            </div>
+            <button class="change-button" type="button" hidden>Change</button>
+          </div>
+
+          <label class="dropzone" id="dropzone1" for="file1" tabindex="0">
+            <input id="file1" name="image1" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+            <span class="upload-placeholder" id="placeholder1">
+              <span class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <strong>Drop an image here</strong>
+              <span>or <b>browse files</b></span>
+              <small>JPG, PNG, WEBP or GIF · Max 10 MB</small>
+            </span>
+            <span class="preview-wrap" id="previewWrap1" hidden>
+              <img id="preview1" alt="Second image preview">
+              <span class="preview-overlay">Click to replace</span>
+            </span>
+          </label>
+
+          <div class="progress-track" id="progressTrack1" hidden>
+            <div class="progress-bar" id="progressBar1"></div>
+          </div>
+
+          <div class="url-section">
+            <label for="url1">Public URL</label>
+            <div class="url-field">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m10 13 4-4m-5.5 6.5-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0m1 1 1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" transform="translate(2 1)"/>
+              </svg>
+              <input id="url1" type="text" value="" placeholder="Your image URL will appear here" readonly aria-describedby="urlHint1">
+              <button id="copy1" class="copy-button" type="button" disabled aria-label="Copy second image URL">
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <p class="url-hint" id="urlHint1">Ready when your upload is complete.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="panel-footer">
+        <span class="secure-note">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3 5 6v5c0 4.6 2.8 8.1 7 10 4.2-1.9 7-5.4 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Files upload directly to Cloudinary
+        </span>
+        <span>Links stay public while the image is available</span>
+      </div>
+    </section>
+
+    <p class="page-note">Simple uploads. Instant links. Ready to share.</p>
+  </main>
+
+  <dialog class="settings-dialog" id="settingsDialog" aria-labelledby="settingsTitle">
+    <form id="settingsForm" novalidate>
+      <div class="dialog-header">
+        <span class="dialog-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8 10a4 4 0 1 1 8 0v2H8v-2Zm-2 2h12v9H6v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M12 14v2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <button class="dialog-close" id="closeSettings" type="button" aria-label="Close settings">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <h2 id="settingsTitle">Connect Cloudinary</h2>
+      <p class="dialog-description">Add your public upload details once. They are saved only in this browser.</p>
+
+      <div class="setup-steps">
+        <span>1</span>
+        <p>Open <a href="https://console.cloudinary.com/" target="_blank" rel="noopener noreferrer">Cloudinary Console</a> and copy your <strong>cloud name</strong>.</p>
+      </div>
+      <div class="setup-steps">
+        <span>2</span>
+        <p>Go to <a href="https://console.cloudinary.com/settings/c-upload" target="_blank" rel="noopener noreferrer">Settings → Upload</a>, add an <strong>unsigned upload preset</strong>, then copy its name.</p>
+      </div>
+
+      <label class="settings-label" for="cloudName">Cloud name</label>
+      <input class="settings-input" id="cloudName" name="cloudName" type="text" placeholder="your-cloud-name" autocomplete="off" spellcheck="false" required>
+      <p class="field-error" id="cloudNameError" hidden>Enter your Cloudinary cloud name.</p>
+
+      <label class="settings-label" for="uploadPreset">Unsigned upload preset</label>
+      <input class="settings-input" id="uploadPreset" name="uploadPreset" type="text" placeholder="your-upload-preset" autocomplete="off" spellcheck="false" required>
+      <p class="field-error" id="uploadPresetError" hidden>Enter your unsigned upload preset name.</p>
+
+      <div class="security-note">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M12 11v5m0-8v.1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+        <p>Use an unsigned preset, not your API secret. Restrict it to images and a 10 MB maximum in Cloudinary.</p>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="cancel-button" id="cancelSettings" type="button">Cancel</button>
+        <button class="save-button" type="submit">Save connection</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span id="toastMessage">URL copied</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
